@@ -32,14 +32,15 @@ router.get('/list',function(req,res,next){
             case '1':priceGt=100;priceLte=500;break;
             case '2':priceGt=500;priceLte=1000;break;
             case '3':priceGt=1000;priceLte=5000;break;
-        }
+        };
+         params={
+            salePrice:{
+              $gt:priceGt,
+              $lte:priceLte
+            }
+        };
     }
-    params={
-        salePrice:{
-          $gt:priceGt,
-          $lte:priceLte
-        }
-    };
+   
     var goodsModel=Goods.find(params).skip(skip).limit(pageSize);
     goodsModel.sort({'salePrice':sort});
     goodsModel.exec(function(err,doc){
